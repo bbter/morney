@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav">
     <RouterLink to="/money" >记账</RouterLink>
     |
     <RouterLink to="/labels" >标签</RouterLink>
@@ -15,5 +15,7 @@ name: "Nav"
 </script>
 
 <style lang="scss" scoped>
-
+  .nav{
+    border: 1px solid red;
+  }
 </style>
