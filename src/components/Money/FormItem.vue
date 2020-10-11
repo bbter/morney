@@ -13,7 +13,7 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  @Prop() readonly value!: number;
+  @Prop({default: ''})value!: number;
   @Prop({required:true}) fieldName!: string;
   @Prop() placeholder?: string
   text = this.value;
