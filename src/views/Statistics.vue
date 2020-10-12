@@ -3,9 +3,9 @@
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <div>
-      type: {{type}}
+      type: {{ type }}
       <br>
-      interval:{{interval}}
+      interval:{{ interval }}
     </div>
   </Layout>
 </template>
@@ -22,9 +22,9 @@ import recordTypeList from '@/constants/recordTypeList';
 })
 export default class Statistics extends Vue {
   type = '-';
-  interval = 'day'
+  interval = 'day';
   intervalList = intervalList;
-  recordTypeList = recordTypeList
+  recordTypeList = recordTypeList;
 
 }
 </script>
@@ -40,6 +40,10 @@ export default class Statistics extends Vue {
       display: none;
     }
   }
+}
+
+::v-deep .interval-tabs-item {
+  height: 48px;
 }
 
 </style>
