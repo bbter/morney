@@ -30,7 +30,7 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
-    this.$store.commit('fetchTags')
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
     if (!this.currentTag) {
       this.$router.replace('/404');
@@ -45,7 +45,7 @@ export default class EditLabel extends Vue {
 
   remove() {
     if (this.currentTag) {
-      this.$store.commit('removeTag',this.currentTag.id)
+      this.$store.commit('removeTag', this.currentTag.id);
     }
   }
 
