@@ -1,7 +1,9 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <Chart :options="x"></Chart>
+    <div class="chart-wrapper" ref="chartWrapper">
+      <Chart class="chart" :options="x"></Chart>
+    </div>
     <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
@@ -27,15 +29,18 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-import Chart from '@/components/Chart.vue'
+import Chart from '@/components/Chart.vue';
 
 
 @Component({
-  components: {Tabs,Chart}
+  components: {Tabs, Chart}
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
+  }
+  mounted(){
+    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999
   }
 
   beautify(string: string) {
@@ -53,17 +58,23 @@ export default class Statistics extends Vue {
       return day.format('YYYY年M月D日');
     }
   }
-  get x(){
+
+  get x() {
     return {
-      tooltip:{
-        show:true,
+      grid:{
+        left:0,
+        right:0,
+      },
+      tooltip: {
+        show: true,
       },
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        show: false,
       },
       series: [{
         data: [120, 200, 150, 80, 70, 110, 130],
@@ -73,7 +84,7 @@ export default class Statistics extends Vue {
           color: 'rgba(220, 220, 220, 0.8)'
         }
       }]
-    }
+    };
   }
 
   get recordList() {
@@ -116,10 +127,6 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.echarts{
-  max-width: 100%;
-  height: 400px;
-}
 .no-result {
   padding: 16px;
   text-align: center;
@@ -164,6 +171,13 @@ export default class Statistics extends Vue {
     margin-right: auto;
     margin-left: 16px;
     color: #999999;
+  }
+
+  .chart {
+    width: 430%;
+    &-wrapper{
+      overflow: auto;
+    }
   }
 }
 </style>
