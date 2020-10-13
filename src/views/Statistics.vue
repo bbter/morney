@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Chart :options="x"></Chart>
     <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
@@ -26,9 +27,11 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Chart from '@/components/Chart.vue'
+
 
 @Component({
-  components: {Tabs}
+  components: {Tabs,Chart}
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
@@ -48,6 +51,28 @@ export default class Statistics extends Vue {
       return day.format('M月D日');
     } else {
       return day.format('YYYY年M月D日');
+    }
+  }
+  get x(){
+    return {
+      tooltip:{
+        show:true,
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: 'line',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(220, 220, 220, 0.8)'
+        }
+      }]
     }
   }
 
@@ -91,6 +116,10 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+.echarts{
+  max-width: 100%;
+  height: 400px;
+}
 .no-result {
   padding: 16px;
   text-align: center;
