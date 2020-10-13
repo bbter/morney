@@ -11,10 +11,10 @@ export class TagHelper extends Vue {
         } else if (name === '') {
             window.alert('标签名不能为空');
         } else if (this.$store.state.tagList) {
-            if (this.$store.state.createTagError === null) {
-                this.$store.commit('createTag', name);
-                window.alert('添加成功');
-            }
+            this.$store.commit('createTag', name);
+            const names = this.$store.state.tagList.map((item: { name: any }) => item.name);
+            if (names.indexOf(name) >= 0) {return;}
+            window.alert('添加成功');
         }
     }
 }

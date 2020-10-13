@@ -42,7 +42,7 @@ const store = new Vuex.Store({
         createTag(state, name: string) {
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
-                window.alert('标签名重复');
+                return window.alert('标签名重复');
             }
             const id = createId().toString();
             state.tagList.push({id, name: name});
