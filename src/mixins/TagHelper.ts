@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 // You can declare mixins as the same style as components.
 @Component
@@ -8,13 +8,15 @@ export class TagHelper extends Vue {
         const name = window.prompt('请输入标签名');
         if (name === null) {
             return;
-        } else if(name === ''){
+        } else if (name === '') {
             window.alert('标签名不能为空');
-        }
-        else if (this.$store.state.tagList) {
-            this.$store.commit('createTag',name)
+        } else if (this.$store.state.tagList) {
+            if (this.$store.state.createTagError === null) {
+                this.$store.commit('createTag', name);
+                window.alert('添加成功');
+            }
         }
     }
 }
 
-export default TagHelper
+export default TagHelper;

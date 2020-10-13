@@ -6,7 +6,7 @@
     <div class="notes">
       <FormItem placeholder="在这里输入备注" field-name="备注" :value.sync="record.notes"/>
     </div>
-    <Tags/>
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 <script lang="ts">
@@ -20,7 +20,7 @@ import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tabs, Tags, FormItem,  NumberPad},
+  components: {Tabs, Tags, FormItem, NumberPad},
 })
 export default class Money extends Vue {
   get recordList() {
@@ -36,7 +36,11 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
+    if (this.record.tags.length === 0 || !this.record.tags) {
+      return window.alert('请至少选择一个标签');
+    }
     this.$store.commit('createRecord', this.record);
+    this.record.notes = '';
   }
 }
 </script>

@@ -16,15 +16,17 @@
 import {Component} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
+
 @Component
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
-  get tagList(){
-    return this.$store.state.tagList
+
+  get tagList() {
+    return this.$store.state.tagList;
   }
 
-  created(){
-    this.$store.commit('fetchTags')
+  created() {
+    this.$store.commit('fetchTags');
   }
 
   toggle(tag: string) {
@@ -62,6 +64,9 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &.selected {
         background: darken($bg, 50%);

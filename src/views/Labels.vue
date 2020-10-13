@@ -24,7 +24,7 @@ import TagHelper from '@/mixins/TagHelper';
 export default class Labels extends mixins(TagHelper) {
   // eslint-disable-next-line getter-return
   get tags() {
-    return this.$store.state.tagList
+    return this.$store.state.tagList;
   }
 
   created() {
