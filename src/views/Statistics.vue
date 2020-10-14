@@ -39,8 +39,10 @@ export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
-  mounted(){
-    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999
+
+  mounted() {
+    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    div.scrollLeft = div.scrollWidth;
   }
 
   beautify(string: string) {
@@ -61,30 +63,30 @@ export default class Statistics extends Vue {
 
   get x() {
     return {
-      grid:{
-        left:0,
-        right:0,
+      grid: {
+        left: 0,
+        right: 0,
       },
       tooltip: {
         show: true,
-        triggerOn:'click',
-        formatter:'{c}',
-        position:'top',
+        triggerOn: 'click',
+        formatter: '{c}',
+        position: 'top',
       },
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        axisTick:{alignWithLabel:true},
-        axisLine:{lineStyle:{color: '#666'}}
+        axisTick: {alignWithLabel: true},
+        axisLine: {lineStyle: {color: '#666'}}
       },
       yAxis: {
         type: 'value',
         show: false,
       },
       series: [{
-        symbol:'circle',
-        symbolSize:12,
-        itemStyle:{borderWidth:1,color:'#666',borderColor:'#666'},
+        symbol: 'circle',
+        symbolSize: 12,
+        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
         data: [120, 200, 150, 80, 70, 110, 130],
         type: 'line',
         showBackground: true,
@@ -183,9 +185,11 @@ export default class Statistics extends Vue {
 
   .chart {
     width: 430%;
-    &-wrapper{
+
+    &-wrapper {
       overflow: auto;
-      &::-webkit-scrollbar{
+
+      &::-webkit-scrollbar {
         display: none;
       }
     }
