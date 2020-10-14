@@ -67,16 +67,24 @@ export default class Statistics extends Vue {
       },
       tooltip: {
         show: true,
+        triggerOn:'click',
+        formatter:'{c}',
+        position:'top',
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisTick:{alignWithLabel:true},
+        axisLine:{lineStyle:{color: '#666'}}
       },
       yAxis: {
         type: 'value',
         show: false,
       },
       series: [{
+        symbol:'circle',
+        symbolSize:12,
+        itemStyle:{borderWidth:1,color:'#666',borderColor:'#666'},
         data: [120, 200, 150, 80, 70, 110, 130],
         type: 'line',
         showBackground: true,
@@ -177,6 +185,9 @@ export default class Statistics extends Vue {
     width: 430%;
     &-wrapper{
       overflow: auto;
+      &::-webkit-scrollbar{
+        display: none;
+      }
     }
   }
 }
